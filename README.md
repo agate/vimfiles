@@ -13,4 +13,4 @@
 
 ### Automatic installer
 
-    $ curl -Lo- https://github.com/agate/vimfiles/blob/master/bootstrap.sh | bash
+    $ curl -Lo- https://raw.github.com/agate/vimfiles/master/bootstrap.sh | bash
