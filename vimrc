@@ -12,6 +12,7 @@ Bundle 'git://github.com/larssmit/vim-getafe.git'
 Bundle 'git://github.com/tpope/vim-haml.git'
 Bundle 'git://github.com/tpope/vim-cucumber.git'
 Bundle 'git://github.com/tpope/vim-markdown.git'
+Bundle 'git://github.com/nelstrom/vim-markdown-folding.git'
 Bundle 'git://github.com/tpope/vim-rails.git'
 Bundle 'git://github.com/tpope/vim-git.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
@@ -31,6 +32,7 @@ Bundle 'git://github.com/vim-scripts/VimClojure.git'
 Bundle 'git://github.com/groenewege/vim-less.git'
 Bundle 'git://github.com/wlangstroth/vim-haskell.git'
 Bundle 'git://github.com/digitaltoad/vim-jade.git'
+Bundle 'git://github.com/aliva/vim-fish.git'
 
 " Tools
 Bundle 'git://github.com/tpope/vim-fugitive.git'
@@ -230,7 +232,7 @@ augroup END
 "let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
 
 " map <F3> for ack current word
-nmap <F3> :Ack<SPACE>
+nmap <F3> :Ack!<SPACE>
 
 " CtrlP
 let g:ctrlp_map = '<C-F>'
@@ -251,7 +253,7 @@ imap <F5> <ESC>:GundoToggle<CR>
 map <leader>zw :ZoomWin<CR>
 
 " Config the NERDTree
-nmap tt :NERDTreeToggle<CR>
+nmap <silent>tt :NERDTreeToggle<CR>
 
 " Config Powerline
 let g:Powerline_symbols = 'fancy'
