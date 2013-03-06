@@ -48,7 +48,7 @@ Bundle 'git://github.com/mileszs/ack.vim.git'
 Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
 Bundle 'git://github.com/Lokaltog/vim-powerline.git'
 Bundle 'git://github.com/kien/ctrlp.vim'
-Bundle 'git://github.com/scrooloose/syntastic.git'
+"Bundle 'git://github.com/scrooloose/syntastic.git'
 Bundle 'git://github.com/Lokaltog/vim-easymotion.git'
 Bundle 'git://github.com/vim-scripts/ZoomWin.git'
 Bundle 'git://github.com/jeetsukumaran/vim-buffergator.git'
@@ -106,7 +106,9 @@ set backspace=indent,eol,start
 syntax on
 colorscheme getafe
 set cursorline
+set colorcolumn=80
 hi CursorLine guifg=NONE guibg=black gui=BOLD ctermfg=NONE ctermbg=black cterm=BOLD
+hi ColorColumn ctermbg=black guibg=black
 
 
 " Search
@@ -193,11 +195,14 @@ nmap <silent> <leader>l :set list!<CR>
 nmap <silent> <leader>cd :lcd %:h<CR>
 
 " Some helpers to edit mode
-" http://vimcasts.org/e/14
-nmap <leader>ew :e    <C-R>=expand('%:h').'/'<CR>
-nmap <leader>es :sp   <C-R>=expand('%:h').'/'<CR>
-nmap <leader>ev :vsp  <C-R>=expand('%:h').'/'<CR>
-nmap <leader>et :tabe <C-R>=expand('%:h').'/'<CR>
+nmap <leader>ew :e    %:p:h/<CR>
+nmap <leader>es :sp   %:p:h/<CR>
+nmap <leader>ev :vs   %:p:h/<CR>
+nmap <leader>et :tabe %:p:h/<CR>
+
+" HEX view
+nmap <leader>16  :% !xxd<CR>
+nmap <leader>16r :% !xxd -r<CR>
 
 
 " GUI Settings
@@ -220,19 +225,19 @@ nmap <silent> <F2> :if &guioptions =~# 'T' <Bar>
 " Additional filetypes
 " -----------------------------------------------------------------------------
 augroup filetypedetect
-  autocmd! BufNewFile,BufRead *.js2,*.ms setlocal ft=javascript
-  autocmd! BufNewFile,BufRead *.pde      setlocal ft=arduino
+  autocmd! BufNewFile,BufRead *.js2,*.ms  setlocal ft=javascript
+  autocmd! BufNewFile,BufRead *.pde,*.ino setlocal ft=arduino
 augroup END
 
 
 " Plugin Settings
 " -----------------------------------------------------------------------------
 " map <F3> for grep current word
-"nmap <silent> <F3> :Grep<CR>
-"let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
+let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
+nmap <silent> <F3> :Grep<CR>
 
 " map <F3> for ack current word
-nmap <F3> :Ack!<SPACE>
+"nmap <F3> :Ack!<SPACE>
 
 " CtrlP
 let g:ctrlp_map = '<C-F>'
