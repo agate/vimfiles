@@ -194,6 +194,9 @@ nmap <silent> <leader>l :set list!<CR>
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
 
+" Toggle line number
+nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>
+
 " Some helpers to edit mode
 nmap <leader>ew :e    %:p:h/<CR>
 nmap <leader>es :sp   %:p:h/<CR>
