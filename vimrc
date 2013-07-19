@@ -15,6 +15,7 @@ Bundle 'git://github.com/tpope/vim-markdown.git'
 Bundle 'git://github.com/nelstrom/vim-markdown-folding.git'
 Bundle 'git://github.com/tpope/vim-rails.git'
 Bundle 'git://github.com/tpope/vim-git.git'
+Bundle 'git://github.com/mhinz/vim-signify.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'git://github.com/ajf/puppet-vim.git'
 Bundle 'git://github.com/rosstimson/scala-vim-support.git'
@@ -41,12 +42,15 @@ Bundle 'git://github.com/tpope/vim-repeat.git'
 Bundle 'git://github.com/tpope/vim-endwise.git'
 Bundle 'git://github.com/scrooloose/nerdtree.git'
 Bundle 'git://github.com/scrooloose/nerdcommenter.git'
-Bundle 'git://github.com/msanders/snipmate.vim.git'
-Bundle 'git://github.com/agate/vim-align.git'
+" replacement of snipmate
+Bundle 'git://github.com/SirVer/ultisnips.git'
+Bundle 'git://github.com/vim-scripts/Align.git'
 Bundle 'git://github.com/vim-scripts/grep.vim.git'
 Bundle 'git://github.com/mileszs/ack.vim.git'
+Bundle 'git://github.com/rking/ag.vim.git'
 Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
 Bundle 'git://github.com/Lokaltog/vim-powerline.git'
+" replacement of Command-T
 Bundle 'git://github.com/kien/ctrlp.vim'
 "Bundle 'git://github.com/scrooloose/syntastic.git'
 Bundle 'git://github.com/Lokaltog/vim-easymotion.git'
@@ -55,6 +59,9 @@ Bundle 'git://github.com/jeetsukumaran/vim-buffergator.git'
 Bundle 'git://github.com/edsono/vim-matchit.git'
 Bundle 'git://github.com/sjl/gundo.vim.git'
 Bundle 'git://github.com/tomtom/tlib_vim.git'
+"Bundle 'git://github.com/FredKSchott/CoVim.git'
+Bundle 'git://github.com/rizzatti/funcoo.vim'
+Bundle 'git://github.com/rizzatti/dash.vim'
 
 " -----------------------------------------------------------------------------
 " My Settings Begin
@@ -158,6 +165,10 @@ set showmode
 
 " Show special characters
 set listchars=tab:▸\ ,trail:˽,eol:¶
+
+" Cursor Style
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " set backup stuff
 set noswapfile
