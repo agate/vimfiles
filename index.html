@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>vimfiles by agate</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>vimfiles</h1>
+        <p>my vimrc and vim dir</p>
+        <p class="view"><a href="https://github.com/agate/vimfiles">View the Project on GitHub <small>agate/vimfiles</small></a></p>
+        <ul>
+          <li><a href="https://github.com/agate/vimfiles/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/agate/vimfiles/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/agate/vimfiles">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="my-vim-config-files" class="anchor" href="#my-vim-config-files"><span class="octicon octicon-link"></span></a>My vim config files</h1>
+
+<p>I am using <a href="https://github.com/gmarik/vundle">vundle</a> as my vim plugin manager.</p>
+
+<h2>
+<a name="how-to-install" class="anchor" href="#how-to-install"><span class="octicon octicon-link"></span></a>How to install:</h2>
+
+<h3>
+<a name="automatic-installer" class="anchor" href="#automatic-installer"><span class="octicon octicon-link"></span></a>Automatic installer</h3>
+
+<div class="highlight"><pre><span class="nv">$ </span>curl -Lo- https://raw.github.com/agate/vimfiles/master/bootstrap.sh | bash
+</pre></div>
+
+<h3>
+<a name="manually" class="anchor" href="#manually"><span class="octicon octicon-link"></span></a>Manually</h3>
+
+<blockquote>
+<p>please remember remove your current ~/.vim and ~/.vimrc file</p>
+</blockquote>
+
+<div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/agate/vimfiles.git ~/.vim
+<span class="nv">$ </span>ln -s ~/.vim/vimrc ~/.vimrc
+<span class="nv">$ </span><span class="nb">cd</span> ~/.vim
+<span class="nv">$ </span>git submodule init
+<span class="nv">$ </span>git submodule update
+<span class="nv">$ </span>vim +BundleInstall +qall
+</pre></div>
+
+<h2>
+<a name="about-color" class="anchor" href="#about-color"><span class="octicon octicon-link"></span></a>About color</h2>
+
+<p>I'm using <a href="https://github.com/larssmit/vim-getafe">getafe</a> as my vim colorscheme. So if you are using iTerm2 on Mac. You might want to try this color setting (<a href="https://github.com/larssmit/iterm2-getafe">iterm2-getafe</a>) for your iTerm2 to make your terminal looks better.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/agate">agate</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
