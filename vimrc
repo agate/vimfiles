@@ -3,65 +3,73 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " Core
-Bundle 'git://github.com/gmarik/vundle.git'
+Bundle 'gmarik/vundle'
+
+" -----------------------------------------------------------------------------
 
 " Colors
-Bundle 'git://github.com/larssmit/vim-getafe.git'
+Bundle 'larssmit/vim-getafe'
+
+" -----------------------------------------------------------------------------
 
 " Langs
-Bundle 'git://github.com/tpope/vim-haml.git'
-Bundle 'git://github.com/tpope/vim-cucumber.git'
-Bundle 'git://github.com/tpope/vim-markdown.git'
-Bundle 'git://github.com/nelstrom/vim-markdown-folding.git'
-Bundle 'git://github.com/tpope/vim-rails.git'
-Bundle 'git://github.com/tpope/vim-git.git'
-Bundle 'git://github.com/mhinz/vim-signify.git'
-Bundle 'git://github.com/pangloss/vim-javascript.git'
-Bundle 'git://github.com/ajf/puppet-vim.git'
-Bundle 'git://github.com/rosstimson/scala-vim-support.git'
-Bundle 'git://github.com/nono/vim-handlebars.git'
-Bundle 'git://github.com/kchmck/vim-coffee-script.git'
-Bundle 'git://github.com/timcharper/textile.vim.git'
-Bundle 'git://github.com/skwp/vim-rspec.git'
-Bundle 'git://github.com/cakebaker/scss-syntax.vim.git'
-Bundle 'git://github.com/vim-scripts/csv.vim.git'
-Bundle 'git://github.com/mmalecki/vim-node.js.git'
-Bundle 'git://github.com/vim-ruby/vim-ruby.git'
-Bundle 'git://github.com/vim-scripts/Arduino-syntax-file.git'
-Bundle 'git://github.com/tclem/vim-arduino.git'
-Bundle 'git://github.com/vim-scripts/VimClojure.git'
-Bundle 'git://github.com/groenewege/vim-less.git'
-Bundle 'git://github.com/wlangstroth/vim-haskell.git'
-Bundle 'git://github.com/digitaltoad/vim-jade.git'
-Bundle 'git://github.com/aliva/vim-fish.git'
+" Langs -  Core
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'mmalecki/vim-node.js'
+Bundle 'slim-template/vim-slim'
+Bundle 'groenewege/vim-less'
+Bundle 'wlangstroth/vim-haskell'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'jimenezrick/vimerl'
+Bundle 'chrisbra/csv.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'guns/vim-clojure-static'
+Bundle 'rosstimson/scala-vim-support'
+Bundle 'vim-scripts/Arduino-syntax-file'
+Bundle 'tclem/vim-arduino'
+Bundle 'aliva/vim-fish'
+" Langs -  Framework
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-git'
+Bundle 'skwp/vim-rspec'
+" Langs -  Sysops
+Bundle 'ajf/puppet-vim'
+
+" -----------------------------------------------------------------------------
 
 " Tools
-Bundle 'git://github.com/tpope/vim-fugitive.git'
-Bundle 'git://github.com/tpope/vim-surround.git'
-Bundle 'git://github.com/tpope/vim-repeat.git'
-Bundle 'git://github.com/tpope/vim-endwise.git'
-Bundle 'git://github.com/scrooloose/nerdtree.git'
-Bundle 'git://github.com/scrooloose/nerdcommenter.git'
-" replacement of snipmate
-Bundle 'git://github.com/SirVer/ultisnips.git'
-Bundle 'git://github.com/vim-scripts/Align.git'
-Bundle 'git://github.com/vim-scripts/grep.vim.git'
-Bundle 'git://github.com/mileszs/ack.vim.git'
-Bundle 'git://github.com/rking/ag.vim.git'
-Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
-Bundle 'git://github.com/Lokaltog/vim-powerline.git'
-" replacement of Command-T
-Bundle 'git://github.com/kien/ctrlp.vim'
-"Bundle 'git://github.com/scrooloose/syntastic.git'
-Bundle 'git://github.com/Lokaltog/vim-easymotion.git'
-Bundle 'git://github.com/vim-scripts/ZoomWin.git'
-Bundle 'git://github.com/jeetsukumaran/vim-buffergator.git'
-Bundle 'git://github.com/edsono/vim-matchit.git'
-Bundle 'git://github.com/sjl/gundo.vim.git'
-Bundle 'git://github.com/tomtom/tlib_vim.git'
-"Bundle 'git://github.com/FredKSchott/CoVim.git'
-Bundle 'git://github.com/rizzatti/funcoo.vim'
-Bundle 'git://github.com/rizzatti/dash.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-fugitive'
+" Tools - replacement of snipmate
+Bundle 'SirVer/ultisnips'
+Bundle 'vim-scripts/Align'
+Bundle 'mileszs/ack.vim'
+Bundle 'Lokaltog/vim-powerline'
+" Tools - replacement of Command-T
+Bundle 'kien/ctrlp.vim'
+Bundle 'sjl/gundo.vim'
+Bundle 'vim-scripts/ZoomWin'
+"Bundle 'tpope/vim-surround'
+"Bundle 'tpope/vim-repeat'
+"Bundle 'tpope/vim-endwise'
+"Bundle 'vim-scripts/grep.vim'
+"Bundle 'nathanaelkane/vim-indent-guides'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'jeetsukumaran/vim-buffergator'
+"Bundle 'edsono/vim-matchit'
+"Bundle 'tomtom/tlib_vim'
+"Bundle 'FredKSchott/CoVim'
+"Bundle 'rizzatti/funcoo.vim'
+"Bundle 'rizzatti/dash.vim'
+"Bundle 'terryma/vim-multiple-cursors'
 
 " -----------------------------------------------------------------------------
 " My Settings Begin
@@ -178,6 +186,10 @@ set noswapfile
 
 " Key maps
 " -----------------------------------------------------------------------------
+" Leader
+let mapleader = ','
+
+" Cursor
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-H> <C-W>h
@@ -246,12 +258,20 @@ augroup END
 
 " Plugin Settings
 " -----------------------------------------------------------------------------
-" map <F3> for grep current word
-let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
-nmap <silent> <F3> :Grep<CR>
+" map <F3> for grep|ack|ag current word
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --column'
 
-" map <F3> for ack current word
-"nmap <F3> :Ack!<SPACE>
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+"let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
+"nmap <F3> :Grep<SPACE>
+nmap <leader>a :Ack
 
 " CtrlP
 let g:ctrlp_map = '<C-F>'
@@ -278,9 +298,9 @@ nmap <silent>tt :NERDTreeToggle<CR>
 let g:Powerline_symbols = 'fancy'
 
 " Syntastic
-let g:syntastic_enable_signs   = 1
-let g:syntastic_quiet_warnings = 0
-let g:syntastic_auto_loc_list  = 2
+"let g:syntastic_enable_signs   = 1
+"let g:syntastic_quiet_warnings = 0
+"let g:syntastic_auto_loc_list  = 2
 
 " Config the Rspec
 let g:RspecBin    = 'rspec'
