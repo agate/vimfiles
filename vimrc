@@ -47,6 +47,7 @@ Bundle 'ajf/puppet-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-fugitive'
+Bundle 'airblade/vim-gitgutter'
 " Tools - replacement of snipmate
 Bundle 'SirVer/ultisnips'
 Bundle 'vim-scripts/Align'
@@ -175,8 +176,13 @@ set showmode
 set listchars=tab:▸\ ,trail:˽,eol:¶
 
 " Cursor Style
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " set backup stuff
 set noswapfile
@@ -209,7 +215,7 @@ nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 " remove all the ending white spaces
-nmap <silent> <leader>d :%s/\s\+$//<CR>
+nmap <silent> <leader><space> :%s/\s\+$//<CR>
 
 " show invisible chars
 nmap <silent> <leader>l :set list!<CR>
@@ -229,6 +235,12 @@ nmap <leader>et :tabe %:p:h/<CR>
 " HEX view
 nmap <leader>16  :% !xxd<CR>
 nmap <leader>16r :% !xxd -r<CR>
+
+" Save readonly file
+cmap w!! %!sudo tee > /dev/null %
+
+" Reload VIMRC
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 
 " GUI Settings
@@ -271,7 +283,10 @@ if executable('ag')
 endif
 "let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
 "nmap <F3> :Grep<SPACE>
-nmap <leader>a :Ack
+nmap <leader>q :Ack
+
+" Align
+map <leader>al :Align
 
 " CtrlP
 let g:ctrlp_map = '<C-F>'
@@ -284,6 +299,10 @@ nmap <leader>gl :Glog<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Git push<CR>
 
+" GitGutter
+let g:gitgutter_enabled = 0
+nmap <leader>gg :GitGutterToggle<CR>
+
 " GunDo
 nmap <F5> :GundoToggle<CR>
 imap <F5> <ESC>:GundoToggle<CR>
@@ -292,7 +311,10 @@ imap <F5> <ESC>:GundoToggle<CR>
 map <leader>zw :ZoomWin<CR>
 
 " Config the NERDTree
+let g:ctrlp_match_window = 'order:ttb,max:20'
+let g:NERDSpaceDelims=1
 nmap <silent>tt :NERDTreeToggle<CR>
+nmap <silent>tf :NERDTreeFind<CR>
 
 " Config Powerline
 let g:Powerline_symbols = 'fancy'
