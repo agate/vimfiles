@@ -1,6 +1,6 @@
 # My vim config files
 
-I am using [vundle](https://github.com/gmarik/vundle) as my vim plugin manager.
+I am using [Vundle](https://github.com/gmarik/Vundle.vim) as my vim plugin manager.
 
 ## How to install:
 
