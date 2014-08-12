@@ -1,76 +1,105 @@
 " Load Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" NOTE README ->
+" brew install macvim --with-cscope --with-lua --env-std --override-system-vim
 
 " Core
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " -----------------------------------------------------------------------------
 
 " Colors
-Bundle 'larssmit/vim-getafe'
+Plugin 'larssmit/vim-getafe'
+Plugin 'godlygeek/csapprox'
 
 " -----------------------------------------------------------------------------
 
 " Langs
 " Langs -  Core
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-haml'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'mmalecki/vim-node.js'
-Bundle 'slim-template/vim-slim'
-Bundle 'groenewege/vim-less'
-Bundle 'wlangstroth/vim-haskell'
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'jimenezrick/vimerl'
-Bundle 'chrisbra/csv.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'guns/vim-clojure-static'
-Bundle 'rosstimson/scala-vim-support'
-Bundle 'vim-scripts/Arduino-syntax-file'
-Bundle 'tclem/vim-arduino'
-Bundle 'aliva/vim-fish'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-haml'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'mmalecki/vim-node.js'
+Plugin 'slim-template/vim-slim'
+Plugin 'groenewege/vim-less'
+Plugin 'wlangstroth/vim-haskell'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'jimenezrick/vimerl'
+" Plugin 'chrisbra/csv.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'killphi/vim-ebnf'
+
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-classpath'
+" Plugin 'dgrnbrg/vim-redl'
+
+" Plugin 'vim-scripts/VimClojure'
+Plugin 'rosstimson/scala-vim-support'
+Plugin 'vim-scripts/Arduino-syntax-file'
+Plugin 'luochen1990/rainbow'
+
+
+Plugin 'tclem/vim-arduino'
+Plugin 'aliva/vim-fish'
 " Langs -  Framework
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-git'
-Bundle 'skwp/vim-rspec'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-git'
+Plugin 'skwp/vim-rspec'
 " Langs -  Sysops
-Bundle 'ajf/puppet-vim'
+Plugin 'ajf/puppet-vim'
+
+" -----------------------------------------------------------------------------
+" Enhans
+
+" Plugin 'vim-scripts/AutoClose'
+" Plugin 'vim-scripts/matchit.zip'
+" Plugin 'Shougo/neocomplete.vim'
 
 " -----------------------------------------------------------------------------
 
 " Tools
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 " Tools - replacement of snipmate
-Bundle 'SirVer/ultisnips'
-Bundle 'vim-scripts/Align'
-Bundle 'mileszs/ack.vim'
-Bundle 'Lokaltog/vim-powerline'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'vim-scripts/Align'
+Plugin 'mileszs/ack.vim'
 " Tools - replacement of Command-T
-Bundle 'kien/ctrlp.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/ZoomWin'
-"Bundle 'tpope/vim-surround'
-"Bundle 'tpope/vim-repeat'
-"Bundle 'tpope/vim-endwise'
-"Bundle 'vim-scripts/grep.vim'
-"Bundle 'nathanaelkane/vim-indent-guides'
-"Bundle 'scrooloose/syntastic'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'jeetsukumaran/vim-buffergator'
-"Bundle 'edsono/vim-matchit'
-"Bundle 'tomtom/tlib_vim'
-"Bundle 'FredKSchott/CoVim'
-"Bundle 'rizzatti/funcoo.vim'
-"Bundle 'rizzatti/dash.vim'
-"Bundle 'terryma/vim-multiple-cursors'
+Plugin 'kien/ctrlp.vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'vim-scripts/ZoomWin'
+"Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-repeat'
+"Plugin 'tpope/vim-endwise'
+"Plugin 'vim-scripts/grep.vim'
+" Indent Guide Line
+Plugin 'nathanaelkane/vim-indent-guides'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'Lokaltog/vim-easymotion'
+"Plugin 'jeetsukumaran/vim-buffergator'
+"Plugin 'edsono/vim-matchit'
+"Plugin 'tomtom/tlib_vim'
+"Plugin 'FredKSchott/CoVim'
+"Plugin 'rizzatti/funcoo.vim'
+"Plugin 'rizzatti/dash.vim'
+"Plugin 'terryma/vim-multiple-cursors'
+
+call vundle#end()            " required
+
+" Powerline setting
+set rtp+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/
 
 " -----------------------------------------------------------------------------
 " My Settings Begin
@@ -123,8 +152,10 @@ syntax on
 colorscheme getafe
 set cursorline
 set colorcolumn=80
-hi CursorLine guifg=NONE guibg=black gui=BOLD ctermfg=NONE ctermbg=black cterm=BOLD
+hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=black guifg=white
+hi LineNr ctermfg=white ctermbg=black
 hi ColorColumn ctermbg=black guibg=black
+set t_Co=256
 
 
 " Search
@@ -166,8 +197,8 @@ set cindent
 " Always display the status line
 set laststatus=2
 
-" format string
-set statusline=%1*\File:\ %*%f%1*%5m%*%=\L%-5l\ \C%-4c%5p%%\ [%L\ \lines]
+" format string -> POWERLINE PLUGIN ALREADY SUPPORTED
+" set statusline=%1*\File:\ %*%f%1*%5m%*%=\L%-5l\ \C%-4c%5p%%\ [%L\ \lines]
 
 " Show the current editing status
 set showmode
@@ -226,6 +257,9 @@ nmap <silent> <leader>cd :lcd %:h<CR>
 " Toggle line number
 nmap <silent> <leader>n :set invnumber<CR>:set number?<CR>
 
+" Toggle line wrap
+nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
+
 " Some helpers to edit mode
 nmap <leader>ew :e    %:p:h/<CR>
 nmap <leader>es :sp   %:p:h/<CR>
@@ -246,7 +280,7 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 " GUI Settings
 " -----------------------------------------------------------------------------
 " Font
-set guifont=Monaco:h14
+set guifont=ProFont:h14
 
 " Toggle Menu and Toolbar
 set guioptions-=m
@@ -265,8 +299,12 @@ nmap <silent> <F2> :if &guioptions =~# 'T' <Bar>
 augroup filetypedetect
   autocmd! BufNewFile,BufRead *.js2,*.ms  setlocal ft=javascript
   autocmd! BufNewFile,BufRead *.pde,*.ino setlocal ft=arduino
+  autocmd! BufNewFile,BufRead *.gr        setlocal ft=ebnf
+  autocmd! BufNewFile,BufRead *.map       set      noexpandtab
 augroup END
 
+" Fix html indent
+let g:html_indent_inctags = "html,body,head,tbody"
 
 " Plugin Settings
 " -----------------------------------------------------------------------------
@@ -289,7 +327,7 @@ nmap <leader>q :Ack
 map <leader>al :Align
 
 " CtrlP
-let g:ctrlp_map = '<C-F>'
+let g:ctrlp_map = '<c-f>'
 
 " FuGitive
 nmap <leader>gb :Gblame<CR>
@@ -324,10 +362,9 @@ let g:Powerline_symbols = 'fancy'
 "let g:syntastic_quiet_warnings = 0
 "let g:syntastic_auto_loc_list  = 2
 
-" Config the Rspec
-let g:RspecBin    = 'rspec'
-let g:RspecRBPath = expand("~/").'.vim/bundle/vim-rspec/plugin/vim-rspec.vim'
+" Clojure
+let g:rainbow_active = 1
 
-" Config the Clojure
-let vimclojure#WantNailgun   = 1
-let vimclojure#NailgunClient = '/Users/honghao/local/lib/vimclojure-nailgun-client-2.3.0/ng'
+" Config the indent-guides
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
