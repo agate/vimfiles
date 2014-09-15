@@ -22,6 +22,8 @@ Plugin 'godlygeek/csapprox'
 " Langs -  Core
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'claco/jasmine.vim' "Vim Plugin for Jasmine javascript testing
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-haml'
 Plugin 'digitaltoad/vim-jade'
@@ -78,6 +80,7 @@ Plugin 'vim-scripts/Align'
 Plugin 'mileszs/ack.vim'
 " Tools - replacement of Command-T
 Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'sjl/gundo.vim'
 Plugin 'vim-scripts/ZoomWin'
 "Plugin 'tpope/vim-surround'
@@ -86,7 +89,7 @@ Plugin 'vim-scripts/ZoomWin'
 "Plugin 'vim-scripts/grep.vim'
 " Indent Guide Line
 Plugin 'nathanaelkane/vim-indent-guides'
-"Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'jeetsukumaran/vim-buffergator'
 "Plugin 'edsono/vim-matchit'
@@ -95,6 +98,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 "Plugin 'rizzatti/funcoo.vim'
 "Plugin 'rizzatti/dash.vim'
 "Plugin 'terryma/vim-multiple-cursors'
+Plugin 'guns/xterm-color-table.vim'
 
 call vundle#end()            " required
 
@@ -134,7 +138,7 @@ set fileencodings=utf-8,chinese
 set nobomb
 
 " Foldmethod
-set foldmethod=marker
+set nofoldenable
 
 " Backspace to delete
 "set backspace=2
@@ -150,12 +154,16 @@ set backspace=indent,eol,start
 " Enable syntax hl
 syntax on
 colorscheme getafe
-set cursorline
-set colorcolumn=80
-hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=black guifg=white
-hi LineNr ctermfg=white ctermbg=black
-hi ColorColumn ctermbg=black guibg=black
 set t_Co=256
+
+set cursorline
+hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=black guifg=white
+
+" set colorcolumn=80
+hi ColorColumn ctermfg=white ctermbg=160 guifg=white guibg=#df0000
+call matchadd('ColorColumn', '\%81v', 100)
+
+hi LineNr ctermfg=white ctermbg=black
 
 
 " Search
@@ -225,6 +233,10 @@ set noswapfile
 " -----------------------------------------------------------------------------
 " Leader
 let mapleader = ','
+
+" Switch ; :
+" nnoremap : ;
+" nnoremap ; :
 
 " Cursor
 nmap <C-J> <C-W>j
@@ -327,7 +339,11 @@ nmap <leader>q :Ack
 map <leader>al :Align
 
 " CtrlP
-let g:ctrlp_map = '<c-f>'
+let g:ctrlp_map = '<leader>f'
+
+" Tags
+nnoremap <leader>ctf :CtrlPTag<CR>
+nnoremap <leader>ctt :TagbarToggle<CR>
 
 " FuGitive
 nmap <leader>gb :Gblame<CR>
