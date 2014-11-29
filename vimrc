@@ -1,3 +1,6 @@
+" Make sure VIM using a POSIX-Compliant shell
+set shell=/bin/sh
+
 " Load Vundle
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -12,98 +15,49 @@ Plugin 'gmarik/Vundle.vim'
 
 " -----------------------------------------------------------------------------
 
-" Colors
+" Colors / Style
+Plugin 'godlygeek/csapprox' " CSApprox : Make gvim-only colorschemes work transparently in terminal vim 
 Plugin 'larssmit/vim-getafe'
-Plugin 'godlygeek/csapprox'
-
-" -----------------------------------------------------------------------------
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'bling/vim-airline'
+Plugin 'kien/rainbow_parentheses.vim'
 
 " Langs
-" Langs -  Core
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'claco/jasmine.vim' "Vim Plugin for Jasmine javascript testing
+Plugin 'tpope/vim-haml' " including sass / scss
 Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-haml'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'mmalecki/vim-node.js'
-Plugin 'slim-template/vim-slim'
-Plugin 'groenewege/vim-less'
-Plugin 'wlangstroth/vim-haskell'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'jimenezrick/vimerl'
-" Plugin 'chrisbra/csv.vim'
+Plugin 'tpope/vim-rails'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'killphi/vim-ebnf'
-
+Plugin 'groenewege/vim-less'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'skwp/vim-rspec'
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
-" Plugin 'tpope/vim-classpath'
-" Plugin 'dgrnbrg/vim-redl'
 
-" Plugin 'vim-scripts/VimClojure'
-Plugin 'rosstimson/scala-vim-support'
-Plugin 'vim-scripts/Arduino-syntax-file'
-Plugin 'luochen1990/rainbow'
-
-
-Plugin 'tclem/vim-arduino'
-Plugin 'aliva/vim-fish'
-" Langs -  Framework
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-git'
-Plugin 'skwp/vim-rspec'
-" Langs -  Sysops
-Plugin 'ajf/puppet-vim'
-
-" -----------------------------------------------------------------------------
-" Enhans
-
-" Plugin 'vim-scripts/AutoClose'
-" Plugin 'vim-scripts/matchit.zip'
-" Plugin 'Shougo/neocomplete.vim'
-
-" -----------------------------------------------------------------------------
+" Snippets
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
 
 " Tools
+Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-" Tools - replacement of snipmate
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'vim-scripts/Align'
-Plugin 'mileszs/ack.vim'
-" Tools - replacement of Command-T
 Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'sjl/gundo.vim'
-Plugin 'vim-scripts/ZoomWin'
-"Plugin 'tpope/vim-surround'
-"Plugin 'tpope/vim-repeat'
-"Plugin 'tpope/vim-endwise'
-"Plugin 'vim-scripts/grep.vim'
-" Indent Guide Line
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'Align'
+" Plugin 'godlygeek/tabular'
+
+" Tools not very useful for me
+" Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'scrooloose/syntastic'
-"Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'jeetsukumaran/vim-buffergator'
-"Plugin 'edsono/vim-matchit'
-"Plugin 'tomtom/tlib_vim'
-"Plugin 'FredKSchott/CoVim'
-"Plugin 'rizzatti/funcoo.vim'
-"Plugin 'rizzatti/dash.vim'
-"Plugin 'terryma/vim-multiple-cursors'
-Plugin 'guns/xterm-color-table.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'sjl/gundo.vim'
+Plugin 'ZoomWin'
 
 call vundle#end()            " required
-
-" Powerline setting
-set rtp+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/
 
 " -----------------------------------------------------------------------------
 " My Settings Begin
@@ -153,8 +107,10 @@ set backspace=indent,eol,start
 " -----------------------------------------------------------------------------
 " Enable syntax hl
 syntax on
-colorscheme getafe
 set t_Co=256
+" colorscheme getafe
+colorscheme lucius
+set background=dark
 
 set cursorline
 hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=black guifg=white
@@ -204,9 +160,6 @@ set cindent
 " -----------------------------------------------------------------------------
 " Always display the status line
 set laststatus=2
-
-" format string -> POWERLINE PLUGIN ALREADY SUPPORTED
-" set statusline=%1*\File:\ %*%f%1*%5m%*%=\L%-5l\ \C%-4c%5p%%\ [%L\ \lines]
 
 " Show the current editing status
 set showmode
@@ -370,17 +323,22 @@ let g:NERDSpaceDelims=1
 nmap <silent>tt :NERDTreeToggle<CR>
 nmap <silent>tf :NERDTreeFind<CR>
 
-" Config Powerline
-let g:Powerline_symbols = 'fancy'
+" Config Airline / Powerline
+let g:airline_powerline_fonts = 1
 
 " Syntastic
 "let g:syntastic_enable_signs   = 1
 "let g:syntastic_quiet_warnings = 0
 "let g:syntastic_auto_loc_list  = 2
 
-" Clojure
-let g:rainbow_active = 1
-
 " Config the indent-guides
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
+
+" Activate skim
+nmap <leader>lv :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+nmap <leader>lp :w<CR>:silent !xelatex -synctex=1 --interaction=nonstopmode %:p <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+nmap <leader>lm :w<CR>:silent !make <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+" Reactivate VIM
+nmap <leader>lr :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
+nmap <leader>lt :w<CR>:silent !xelatex -synctex=1 --interaction=nonstopmode %:p <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
