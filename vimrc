@@ -15,12 +15,18 @@ Plugin 'gmarik/Vundle.vim'
 
 " -----------------------------------------------------------------------------
 
-" Colors / Style
-Plugin 'godlygeek/csapprox' " CSApprox : Make gvim-only colorschemes work transparently in terminal vim 
-Plugin 'larssmit/vim-getafe'
-Plugin 'jonathanfilip/vim-lucius'
+" Style
+" CSApprox:
+"   => Make gvim-only colorschemes work transparently in terminal vim 
+Plugin 'godlygeek/csapprox'
 Plugin 'bling/vim-airline'
 Plugin 'kien/rainbow_parentheses.vim'
+
+" ColorScheme
+Plugin 'larssmit/vim-getafe'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'tomasr/molokai'
 
 " Langs
 Plugin 'tpope/vim-haml' " including sass / scss
@@ -34,6 +40,9 @@ Plugin 'digitaltoad/vim-jade'
 Plugin 'skwp/vim-rspec'
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
+Plugin 'dag/vim-fish'
+Plugin 'moll/vim-node'
+Plugin 'mxw/vim-jsx'
 
 " Snippets
 Plugin 'honza/vim-snippets'
@@ -41,21 +50,24 @@ Plugin 'SirVer/ultisnips'
 
 " Tools
 Plugin 'tpope/vim-fugitive'
+Plugin 'vinnie-pepi/gh-comment.vim' "Vinnie's gh tool
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'Align'
+Plugin 'jlanzarotta/bufexplorer'
 " Plugin 'godlygeek/tabular'
 
 " Tools not very useful for me
-" Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'majutsushi/tagbar'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'sjl/gundo.vim'
 Plugin 'ZoomWin'
+Plugin 'rizzatti/dash.vim'
 
 call vundle#end()            " required
 
@@ -106,11 +118,23 @@ set backspace=indent,eol,start
 " Colors
 " -----------------------------------------------------------------------------
 " Enable syntax hl
+if &term =~ '256color'
+  " Idea From: https://sunaku.github.io/vim-256color-bce.html
+  " For fixing vim under tmux/screen color problem:
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+
+  set t_Co=256
+endif
+
 syntax on
-set t_Co=256
-" colorscheme getafe
-colorscheme lucius
+set synmaxcol=200
+let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 set background=dark
+colorscheme getafe
+" colorscheme lucius
 
 set cursorline
 hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=black guifg=white
@@ -323,6 +347,9 @@ let g:NERDSpaceDelims=1
 nmap <silent>tt :NERDTreeToggle<CR>
 nmap <silent>tf :NERDTreeFind<CR>
 
+" Config the bufexplorer
+nmap <silent><leader>bb :ToggleBufExplorer<CR>
+
 " Config Airline / Powerline
 let g:airline_powerline_fonts = 1
 
@@ -334,6 +361,22 @@ let g:airline_powerline_fonts = 1
 " Config the indent-guides
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
+
+" EasyMotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-s2)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 " Activate skim
 nmap <leader>lv :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
