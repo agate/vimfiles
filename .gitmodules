@@ -1,6 +1,6 @@
 [submodule "colors/iterm2-getafe"]
 	path = colors/iterm2-getafe
-	url = git@github.com:larssmit/iterm2-getafe.git
+	url = https://github.com/larssmit/iterm2-getafe.git
 [submodule "bundle/Vundle.vim"]
 	path = bundle/Vundle.vim
-	url = git@github.com:gmarik/Vundle.vim.git
+	url = https://github.com/VundleVim/Vundle.vim.git
