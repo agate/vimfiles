@@ -1,75 +1,82 @@
 " Make sure VIM using a POSIX-Compliant shell
 set shell=/bin/sh
 
-" Load Vundle
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" For Neovim
+let g:python_host_prog="/Users/honghao/.pyenv/shims/python"
+let g:python3_host_prog="/Users/honghao/.pyenv/shims/python"
 
-" NOTE README ->
-" brew install macvim --with-cscope --with-lua --env-std --override-system-vim
+"------- vim-plug START
+call plug#begin('~/.vim/plugged')
+" Make sure you use single quotes
 
 " Core
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " -----------------------------------------------------------------------------
 
 " Style
 " CSApprox:
 "   => Make gvim-only colorschemes work transparently in terminal vim 
-Plugin 'godlygeek/csapprox'
-Plugin 'bling/vim-airline'
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'godlygeek/csapprox'
+Plug 'bling/vim-airline'
+Plug 'kien/rainbow_parentheses.vim'
 
 " ColorScheme
-Plugin 'larssmit/vim-getafe'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jonathanfilip/vim-lucius'
-Plugin 'tomasr/molokai'
+Plug 'larssmit/vim-getafe'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'tomasr/molokai'
 
 " Langs
-Plugin 'tpope/vim-haml' " including sass / scss
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-rails'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'groenewege/vim-less'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'skwp/vim-rspec'
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-fireplace'
-Plugin 'dag/vim-fish'
-Plugin 'moll/vim-node'
-Plugin 'mxw/vim-jsx'
+Plug 'tpope/vim-haml' " including sass / scss
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rails'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-ruby/vim-ruby'
+Plug 'kchmck/vim-coffee-script'
+Plug 'groenewege/vim-less'
+Plug 'digitaltoad/vim-jade'
+Plug 'skwp/vim-rspec'
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+" Plug 'dag/vim-fish'
+Plug 'moll/vim-node'
+Plug 'mxw/vim-jsx'
+
+" Lang Tools
+Plug 'ngmy/vim-rubocop' " RuboCop is a Ruby static code analyzer, beautiful / clean ruby code!
 
 " Snippets
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
 " Tools
-Plugin 'tpope/vim-fugitive'
-Plugin 'vinnie-pepi/gh-comment.vim' "Vinnie's gh tool
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'Align'
-Plugin 'jlanzarotta/bufexplorer'
-" Plugin 'godlygeek/tabular'
+Plug 'tpope/vim-fugitive'
+Plug 'vinnie-pepi/gh-comment.vim' "Vinnie's gh tool
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+" Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
+Plug 'Align'
+Plug 'junegunn/vim-easy-align'
+Plug 'jlanzarotta/bufexplorer'
+" Plug 'godlygeek/tabular'
+" Plug 'terryma/vim-multiple-cursors'
 
 " Tools not very useful for me
-" Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'majutsushi/tagbar'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'sjl/gundo.vim'
-Plugin 'ZoomWin'
-Plugin 'rizzatti/dash.vim'
+" Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'majutsushi/tagbar'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'sjl/gundo.vim'
+Plug 'ZoomWin'
+Plug 'rizzatti/dash.vim'
 
-call vundle#end()            " required
+" Add plugins to &runtimepath
+call plug#end()
+"------- vim-plug END
 
 " -----------------------------------------------------------------------------
 " My Settings Begin
@@ -111,8 +118,8 @@ set nofoldenable
 set backspace=indent,eol,start
 
 " Use mouse
+"set mouse=c
 "set ttymouse=xterm
-"set mouse=nv
 
 
 " Colors
@@ -130,10 +137,11 @@ if &term =~ '256color'
 endif
 
 syntax on
-set synmaxcol=200
+set synmaxcol=300
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 set background=dark
 colorscheme getafe
+" colorscheme PaperColor
 " colorscheme lucius
 
 set cursorline
@@ -205,6 +213,25 @@ set noswapfile
 "set nobackup
 "set nowritebackup
 
+" Large file fast
+" Protect large files from sourcing and other overhead.
+" Files become read only
+if !exists("my_auto_commands_loaded")
+  let my_auto_commands_loaded = 1
+  " Large files are > 10M
+  " Set options:
+  " eventignore+=FileType (no syntax highlighting etc
+  " assumes FileType always on)
+  " noswapfile (save copy of file)
+  " bufhidden=unload (save memory when other file is viewed)
+  " buftype=nowrite (file is read-only)
+  " undolevels=-1 (no undo possible)
+  let g:LargeFile = 1024 * 1024 * 10
+  augroup LargeFile
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+  augroup END
+endif
+
 
 " Key maps
 " -----------------------------------------------------------------------------
@@ -216,9 +243,9 @@ let mapleader = ','
 " nnoremap ; :
 
 " Cursor
+nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
-nmap <C-H> <C-W>h
 nmap <C-L> <C-W>l
 
 " Map the arrow keys to be based on display lines, not physical lines
@@ -300,13 +327,10 @@ let g:html_indent_inctags = "html,body,head,tbody"
 " map <F3> for grep|ack|ag current word
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
-  let g:ackprg = 'ag --nogroup --column'
+  let g:ackprg = 'ag --nogroup --column --ignore "*.sql" --ignore "*.log" --ignore "*.csv" --ignore "*.pem" --ignore "*.svg"'
 
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  set grepprg=ag\ --nogroup\ --column\ --ignore\ "*.sql"\ --ignore\ "*.log"\ --ignore\ "*.csv"\ --ignore\ "*.pem"\ --ignore\ "*.svg"
 endif
 "let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
 "nmap <F3> :Grep<SPACE>
@@ -316,7 +340,11 @@ nmap <leader>q :Ack
 map <leader>al :Align
 
 " CtrlP
-let g:ctrlp_map = '<leader>f'
+" let g:ctrlp_map = '<leader>f'
+" if executable('ag')
+"   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" endif
 
 " Tags
 nnoremap <leader>ctf :CtrlPTag<CR>
@@ -354,9 +382,15 @@ nmap <silent><leader>bb :ToggleBufExplorer<CR>
 let g:airline_powerline_fonts = 1
 
 " Syntastic
-"let g:syntastic_enable_signs   = 1
-"let g:syntastic_quiet_warnings = 0
-"let g:syntastic_auto_loc_list  = 2
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
 
 " Config the indent-guides
 hi IndentGuidesOdd  ctermbg=black
@@ -385,3 +419,15 @@ nmap <leader>lm :w<CR>:silent !make <CR>:silent !/Applications/Skim.app/Contents
 " Reactivate VIM
 nmap <leader>lr :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
 nmap <leader>lt :w<CR>:silent !xelatex -synctex=1 --interaction=nonstopmode %:p <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
+
+
+" Clipboard
+" Copy to clipboard
+nmap <leader>y "+y
+nmap <leader>Y "+yg_
+vmap <leader>y "+y
+" Paste from clipboard
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
