@@ -21,6 +21,6 @@ ln -s ~/.vim/vimrc ~/.vimrc
 cd ~/.vim
 git submodule init
 git submodule update
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 echo "DONE!"
