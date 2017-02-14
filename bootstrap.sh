@@ -14,7 +14,7 @@ for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc; do
 done
 
 # Clone Vimfiles into .vim
-git clone git://github.com/agate/vimfiles.git $HOME/.vim \
+git clone git@github.com:agate/vimfiles.git $HOME/.vim \
   || die "Could not clone the repository to ${HOME}/.vim"
 
 ln -s ~/.vim/vimrc ~/.vimrc
