@@ -2,15 +2,12 @@
 set shell=/bin/sh
 
 " For Neovim
-let g:python_host_prog="/Users/honghao/.pyenv/shims/python"
-let g:python3_host_prog="/Users/honghao/.pyenv/shims/python"
+let g:python_host_prog = expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
 "------- vim-plug START
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
-
-" Core
-Plug 'gmarik/Vundle.vim'
 
 " -----------------------------------------------------------------------------
 
@@ -43,6 +40,7 @@ Plug 'tpope/vim-fireplace'
 " Plug 'dag/vim-fish'
 Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
+Plug 'hashivim/vim-terraform'
 
 " Lang Tools
 Plug 'ngmy/vim-rubocop' " RuboCop is a Ruby static code analyzer, beautiful / clean ruby code!
@@ -59,14 +57,16 @@ Plug 'scrooloose/nerdcommenter'
 " Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
-Plug 'Align'
+" Plug 'Align'
 Plug 'junegunn/vim-easy-align'
 Plug 'jlanzarotta/bufexplorer'
 " Plug 'godlygeek/tabular'
 " Plug 'terryma/vim-multiple-cursors'
+Plug 'ianva/vim-youdao-translater'
+Plug 'vim-scripts/VisIncr'
 
 " Tools not very useful for me
-" Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
+Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'majutsushi/tagbar'
 Plug 'Lokaltog/vim-easymotion'
@@ -290,7 +290,7 @@ nmap <leader>16r :% !xxd -r<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 " Reload VIMRC
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map <silent> <leader>rv :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 
 " GUI Settings
@@ -337,7 +337,12 @@ endif
 nmap <leader>q :Ack
 
 " Align
-map <leader>al :Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <leader>al <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <leader>al <Plug>(EasyAlign)
+" Align GitHub-flavored Markdown tables
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " CtrlP
 " let g:ctrlp_map = '<leader>f'
@@ -368,6 +373,7 @@ imap <F5> <ESC>:GundoToggle<CR>
 
 " ZoomWin
 map <leader>zw :ZoomWin<CR>
+map <leader>zz :ZoomWin<CR>
 
 " Config the NERDTree
 let g:ctrlp_match_window = 'order:ttb,max:20'
@@ -386,11 +392,11 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'rubylint']
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_ruby_checkers = ['haml_lint', 'rubocop', 'mri', 'rubylint', '']
 
 " Config the indent-guides
 hi IndentGuidesOdd  ctermbg=black
@@ -431,3 +437,20 @@ nmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
+
+
+" Youdao
+nnoremap <leader>yd :<C-u>Ydc<CR>
+vnoremap <leader>yd :<C-u>Ydv<CR>
+
+
+" NEOVIM Special
+:map <A-t><A-t> :vs term://fish<CR>
+:tnoremap <A-h> <C-\><C-n><C-w>h
+:tnoremap <A-j> <C-\><C-n><C-w>j
+:tnoremap <A-k> <C-\><C-n><C-w>k
+:tnoremap <A-l> <C-\><C-n><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
