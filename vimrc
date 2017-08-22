@@ -2,6 +2,9 @@
 set shell=/bin/sh
 
 " For Neovim
+" https://github.com/pyenv/pyenv
+" https://github.com/pyenv/pyenv-virtualenv
+" https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
 let g:python_host_prog = expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
@@ -445,12 +448,17 @@ vnoremap <leader>yd :<C-u>Ydv<CR>
 
 
 " NEOVIM Special
-:map <A-t><A-t> :vs term://fish<CR>
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+map <A-t><A-t> :vs term://fish<CR>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+
+autocmd CursorHold,CursorHoldI,FocusGained,BufEnter * checktime
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
