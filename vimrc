@@ -2,9 +2,6 @@
 set shell=/bin/sh
 
 " For Neovim
-" https://github.com/pyenv/pyenv
-" https://github.com/pyenv/pyenv-virtualenv
-" https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
 let g:python_host_prog = expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
