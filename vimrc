@@ -2,6 +2,22 @@
 set shell=/bin/sh
 
 " For Neovim
+"   LATEST_PY2_VERSION=$(pyenv install --list | sed 's| *||' | grep '^2' | grep '^[0-9.]*$' | sort -V | tail -n1)
+"   LATEST_PY3_VERSION=$(pyenv install --list | sed 's| *||' | grep '^3' | grep '^[0-9.]*$' | sort -V | tail -n1)
+"
+"   pyenv install $LATEST_PY2_VERSION
+"   pyenv install $LATEST_PY3_VERSION
+"
+"   pyenv virtualenv $LATEST_PY2_VERSION neovim2
+"   pyenv virtualenv $LATEST_PY3_VERSION neovim3
+"
+"   pyenv activate neovim2
+"   pip install pynvim
+"   pyenv which python  # Note the path and put it into g:python_host_prog
+"
+"   pyenv activate neovim3
+"   pip install pynvim
+"   pyenv which python  # Note the path and put it into g:python3_host_prog
 let g:python_host_prog = expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
@@ -13,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 
 " Style
 " CSApprox:
-"   => Make gvim-only colorschemes work transparently in terminal vim 
+"   => Make gvim-only colorschemes work transparently in terminal vim
 Plug 'godlygeek/csapprox'
 Plug 'bling/vim-airline'
 Plug 'kien/rainbow_parentheses.vim'
@@ -40,7 +56,28 @@ Plug 'tpope/vim-fireplace'
 " Plug 'dag/vim-fish'
 Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'Quramy/tsuquyomi'
+" Plug 'mhartington/nvim-typescript'
 Plug 'hashivim/vim-terraform'
+Plug 'vim-scripts/groovyindent-unix'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'posva/vim-vue'
+" Check syntax (linting) and fix files asynchronously, with Language Server Protocol (LSP) integration in Vim
+Plug 'w0rp/ale'
+Plug 'sbdchd/neoformat'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+" Plug 'Valloric/YouCompleteMe'
 
 " Lang Tools
 Plug 'ngmy/vim-rubocop' " RuboCop is a Ruby static code analyzer, beautiful / clean ruby code!
@@ -54,7 +91,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vinnie-pepi/gh-comment.vim' "Vinnie's gh tool
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 " Plug 'Align'
@@ -66,12 +103,11 @@ Plug 'ianva/vim-youdao-translater'
 Plug 'vim-scripts/VisIncr'
 
 " Tools not very useful for me
-Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
+" Plug 'scrooloose/syntastic' " Syntax checking hacks for vim Conflict with 'w0rp/ale'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'majutsushi/tagbar'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'sjl/gundo.vim'
-Plug 'ZoomWin'
 Plug 'rizzatti/dash.vim'
 
 " Add plugins to &runtimepath
@@ -139,8 +175,12 @@ endif
 syntax on
 set synmaxcol=300
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+" DARK
 set background=dark
 colorscheme getafe
+" LIGHT
+" set background=light
+" colorscheme solarized
 " colorscheme PaperColor
 " colorscheme lucius
 
@@ -295,8 +335,6 @@ map <silent> <leader>rv :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vim
 
 " GUI Settings
 " -----------------------------------------------------------------------------
-" Font
-set guifont=ProFont:h14
 
 " Toggle Menu and Toolbar
 set guioptions-=m
@@ -319,6 +357,11 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.map       set      noexpandtab
 augroup END
 
+augroup ft_rb
+  " fix the SLOOOW syntax highlighting
+  autocmd! FileType ruby setlocal regexpengine=1 foldmethod=manual lazyredraw
+augroup END
+
 " Fix html indent
 let g:html_indent_inctags = "html,body,head,tbody"
 
@@ -326,11 +369,11 @@ let g:html_indent_inctags = "html,body,head,tbody"
 " -----------------------------------------------------------------------------
 " map <F3> for grep|ack|ag current word
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  let g:ackprg = 'ag --nogroup --column --ignore "*.sql" --ignore "*.log" --ignore "*.csv" --ignore "*.pem" --ignore "*.svg"'
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep --column -g "!*.sql" -g "!*.log" -g "!*.csv" -g "!*.pem" -g "!*.svg" -g "!node_modules"'
 
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --column\ --ignore\ "*.sql"\ --ignore\ "*.log"\ --ignore\ "*.csv"\ --ignore\ "*.pem"\ --ignore\ "*.svg"
+  " Use rg over Grep
+  set grepprg=rg\ --vimgrep\ --column\ --ignore\ "*.sql"\ --ignore\ "*.log"\ --ignore\ "*.csv"\ --ignore\ "*.pem"\ --ignore\ "*.svg"\ --ignore\ "node_modules"
 endif
 "let Grep_Default_Options = '-i -r --exclude=all-wcprops --exclude=entries --exclude=\*.swp --exclude=\*.tmp --exclude=\*.log'
 "nmap <F3> :Grep<SPACE>
@@ -345,11 +388,11 @@ nmap <leader>al <Plug>(EasyAlign)
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " CtrlP
-" let g:ctrlp_map = '<leader>f'
-" if executable('ag')
-"   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" endif
+let g:ctrlp_map = '<leader>f'
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " Tags
 nnoremap <leader>ctf :CtrlPTag<CR>
@@ -370,10 +413,6 @@ nmap <leader>gg :GitGutterToggle<CR>
 " GunDo
 nmap <F5> :GundoToggle<CR>
 imap <F5> <ESC>:GundoToggle<CR>
-
-" ZoomWin
-map <leader>zw :ZoomWin<CR>
-map <leader>zz :ZoomWin<CR>
 
 " Config the NERDTree
 let g:ctrlp_match_window = 'order:ttb,max:20'
@@ -443,8 +482,10 @@ vmap <leader>P "+P
 nnoremap <leader>yd :<C-u>Ydc<CR>
 vnoremap <leader>yd :<C-u>Ydv<CR>
 
+" pangloss/vim-javascript
 
 " NEOVIM Special
+" -----------------------------------------------------------------------------
 map <A-t><A-t> :vs term://fish<CR>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -454,7 +495,6 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-
 
 autocmd CursorHold,CursorHoldI,FocusGained,BufEnter * checktime
 autocmd FileChangedShellPost *
