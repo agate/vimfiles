@@ -12,14 +12,15 @@ set shell=/bin/sh
 "   pyenv virtualenv $LATEST_PY3_VERSION neovim3
 "
 "   pyenv activate neovim2
-"   pip install pynvim
+"   pip install neovim
 "   pyenv which python  # Note the path and put it into g:python_host_prog
 "
 "   pyenv activate neovim3
-"   pip install pynvim
+"   pip install neovim
 "   pyenv which python  # Note the path and put it into g:python3_host_prog
 let g:python_host_prog = expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
+let g:ruby_host_prog = '/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby'
 
 "------- vim-plug START
 call plug#begin('~/.vim/plugged')
@@ -31,35 +32,42 @@ call plug#begin('~/.vim/plugged')
 " CSApprox:
 "   => Make gvim-only colorschemes work transparently in terminal vim
 Plug 'godlygeek/csapprox'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/rainbow_parentheses.vim'
 
 " ColorScheme
 Plug 'larssmit/vim-getafe'
+Plug 'jaredgorski/spacecamp'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'tomasr/molokai'
 
+" Icons
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+
 " Langs
 Plug 'tpope/vim-haml' " including sass / scss
+Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-ruby/vim-ruby'
+Plug 'elzr/vim-json'
 Plug 'kchmck/vim-coffee-script'
 Plug 'groenewege/vim-less'
 Plug 'digitaltoad/vim-jade'
 Plug 'skwp/vim-rspec'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
-" Plug 'dag/vim-fish'
 Plug 'moll/vim-node'
-Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'Quramy/tsuquyomi'
-" Plug 'mhartington/nvim-typescript'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-scripts/groovyindent-unix'
 Plug 'martinda/Jenkinsfile-vim-syntax'
@@ -67,6 +75,9 @@ Plug 'posva/vim-vue'
 " Check syntax (linting) and fix files asynchronously, with Language Server Protocol (LSP) integration in Vim
 Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
+
+" Enhancement
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -103,7 +114,6 @@ Plug 'ianva/vim-youdao-translater'
 Plug 'vim-scripts/VisIncr'
 
 " Tools not very useful for me
-" Plug 'scrooloose/syntastic' " Syntax checking hacks for vim Conflict with 'w0rp/ale'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'majutsushi/tagbar'
 Plug 'Lokaltog/vim-easymotion'
@@ -154,8 +164,9 @@ set nofoldenable
 set backspace=indent,eol,start
 
 " Use mouse
-"set mouse=c
-"set ttymouse=xterm
+set mouse=a
+" set mouse=c
+" set ttymouse=xterm
 
 
 " Colors
@@ -177,7 +188,7 @@ set synmaxcol=300
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 " DARK
 set background=dark
-colorscheme getafe
+colorscheme PaperColor
 " LIGHT
 " set background=light
 " colorscheme solarized
@@ -389,10 +400,6 @@ au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " CtrlP
 let g:ctrlp_map = '<leader>f'
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 
 " Tags
 nnoremap <leader>ctf :CtrlPTag<CR>
@@ -411,31 +418,91 @@ let g:gitgutter_enabled = 0
 nmap <leader>gg :GitGutterToggle<CR>
 
 " GunDo
-nmap <F5> :GundoToggle<CR>
-imap <F5> <ESC>:GundoToggle<CR>
+nmap <leader>uu :GundoToggle<CR>
+
+" coc config
+if exists("g:coc_global_extensions")
+  let g:coc_global_extensions = [
+    \ 'coc-snippets',
+    \ 'coc-tsserver',
+    \ 'coc-eslint',
+    \ 'coc-prettier',
+    \ 'coc-json',
+    \ ]
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  " Use K to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+endif
 
 " Config the NERDTree
-let g:ctrlp_match_window = 'order:ttb,max:20'
 let g:NERDSpaceDelims=1
 nmap <silent>tt :NERDTreeToggle<CR>
 nmap <silent>tf :NERDTreeFind<CR>
+
+" Allow reload webdevicons when reload vimrc
+let g:WebDevIconsOS = 'Darwin'
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsDefaultFolderOpenSymbol='' " symbol for open folder (f07c)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol='' " symbol for closed folder (f07b)
+highlight! link NERDTreeFlags NERDTreeDir
+if exists("g:loaded_webdevicons")
+  call webdevicons#refresh()
+endif
 
 " Config the bufexplorer
 nmap <silent><leader>bb :ToggleBufExplorer<CR>
 
 " Config Airline / Powerline
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='papercolor'
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 " let g:syntastic_ruby_checkers = ['haml_lint', 'rubocop', 'mri', 'rubylint', '']
+
+let g:ale_fixers = {
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'typescript.tsx': ['eslint']
+      \ }
+let g:ale_linters= {
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'typescript.tsx': ['eslint']
+      \ }
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1
+
+let g:vim_json_syntax_conceal = 0
 
 " Config the indent-guides
 hi IndentGuidesOdd  ctermbg=black
@@ -468,6 +535,8 @@ nmap <leader>lt :w<CR>:silent !xelatex -synctex=1 --interaction=nonstopmode %:p 
 
 " Clipboard
 " Copy to clipboard
+" set clipboard=unnamedplus
+
 nmap <leader>y "+y
 nmap <leader>Y "+yg_
 vmap <leader>y "+y
@@ -476,11 +545,14 @@ nmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
+map <D-C> "+y
+map <D-V> "+p
 
 
 " Youdao
 nnoremap <leader>yd :<C-u>Ydc<CR>
 vnoremap <leader>yd :<C-u>Ydv<CR>
+
 
 " pangloss/vim-javascript
 
@@ -499,3 +571,15 @@ nnoremap <A-l> <C-w>l
 autocmd CursorHold,CursorHoldI,FocusGained,BufEnter * checktime
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+
+" CUSTOMIZED FUNCTIONS
+function! ToggleBackground()
+	if &background == 'dark'
+    set background = 'light'
+	else
+    set background = 'dark'
+	endif
+endfunction
+command! ToggleBackground :call ToggleBackground()
+
