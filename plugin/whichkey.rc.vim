@@ -26,6 +26,14 @@ let g:which_key_map = {
       \ }
 let g:which_key_map['l'] = {
       \ 'name' : '+LSP',
+      \ 'a' : [':execute "lua vim.lsp.buf.code_action()"', 'Show code actions'],
+      \ 'd' : [':execute "lua vim.lsp.buf.definition()"', 'Show definition'],
+      \ 'D' : [':execute "lua vim.lsp.buf.declaration()"', 'Show declaration'],
+      \ 'f' : [':execute "lua vim.lsp.buf.formatting()"', 'Format code'],
+      \ 'h' : [':execute "lua vim.lsp.buf.hover()"', 'Show hover doc'],
+      \ 'r' : [':execute "lua vim.lsp.buf.references()"', 'Find the cursor word definition and reference'],
+      \ 's' : [':execute "lua vim.lsp.buf.signature_help()"', 'Show signature help'],
+      \ '?' : [':execute "lua vim.diagnostic.open_float()"', 'Show line diagnostics'],
       \ }
 
 let g:which_key_map['v'] = {
@@ -42,6 +50,14 @@ let g:which_key_map['v'] = {
         \ 'u' : [':PlugUpdate',  'PlugUpdate'],
         \ },
       \ 'w' : [':set invwrap', 'Toggle line wrap'],
+      \ }
+
+let g:which_key_map['h'] = {
+      \ 'name' : '+Harpoon',
+      \ 'm' : [':execute "lua require(\"harpoon.mark\").add_file()"',        'Mark File'],
+      \ 'v' : [':execute "lua require(\"harpoon.ui\").toggle_quick_menu()"', 'Toggle Menu'],
+      \ 'n' : [':execute "lua require(\"harpoon.ui\").nav_next()"',          'Navigate To Next File'],
+      \ 'p' : [':execute "lua require(\"harpoon.ui\").nav_prev()"',          'Navigate To Previous File'],
       \ }
 
 
@@ -77,16 +93,16 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['c'] = {
       \ 'name' : '+Content',
-      \ 'c' : ['<plug>NERDCommenterToggle',     'Toggle comment'],
-      \ 'd' : [':cd %:p:h',                     'cd into current file dir'],
-      \ 'f' : [':lua vim.lsp.buf.formatting()', 'LSP code format'],
-      \ 's' : [':%s/\s\+$//',                   'Remove all the ending white spaces'],
+      \ 'c' : ['<plug>NERDCommenterToggle',               'Toggle comment'],
+      \ 'd' : [':cd %:p:h',                               'cd into current file dir'],
+      \ 'f' : [':execute "lua vim.lsp.buf.formatting()"', 'LSP code format'],
+      \ 's' : [':%s/\s\+$//',                             'Remove all the ending white spaces'],
       \ }
 let g:which_key_map['g'] = {
       \ 'name' : '+Git',
-      \ 'b' : [':Git blame', 'Git blame'],
-      \ 'd' : [':Git diff', 'Git diff'],
-      \ 'l' : [':Git log', 'Git log'],
+      \ 'b' : [':Git blame',  'Git blame'],
+      \ 'd' : [':Git diff',   'Git diff'],
+      \ 'l' : [':Git log',    'Git log'],
       \ 's' : [':Git status', 'Git status'],
       \ }
 let g:which_key_map['u'] = {

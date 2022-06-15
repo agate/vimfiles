@@ -16,8 +16,9 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " show color in vim
 " Plug 'arcticicestudio/nord-vim'
 " Plug 'NLKNguyen/papercolor-theme'
 " Plug 'projekt0n/github-nvim-theme'
-Plug 'folke/tokyonight.nvim'
-Plug 'dracula/vim'
+" Plug 'folke/tokyonight.nvim'
+" Plug 'dracula/vim'
+Plug 'sainnhe/sonokai'
 
 " Utils
 " Plug 'mhinz/vim-startify' " Landing page
@@ -34,6 +35,8 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'easymotion/vim-easymotion'
 Plug 'jremmen/vim-ripgrep'
 Plug 'jiangmiao/auto-pairs'
+Plug 'ThePrimeagen/harpoon'
+Plug 'junegunn/goyo.vim'
 
 "" Snippets
 Plug 'SirVer/ultisnips'   " Snippet Engine
@@ -47,16 +50,20 @@ Plug 'plasticboy/vim-markdown'
 Plug 'hashivim/vim-terraform'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'vim-scripts/groovyindent-unix'
+Plug 'tomlion/vim-solidity'
 
 if has('nvim')
   Plug 'neovim/nvim-lspconfig' " Language Server Support
-  " Plug 'glepnir/lspsaga.nvim'  " better lsp UI based on neovim/nvim-lspconfig
-  Plug 'jasonrhansen/lspsaga.nvim', {'branch': 'finder-preview-fixes'}
+  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'glepnir/lspsaga.nvim'  " better lsp UI based on neovim/nvim-lspconfig
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope.nvim' " require plenary.nvim plugin
     Plug 'kyazdani42/nvim-web-devicons'
+
+  " Utils
+  Plug 'ggandor/lightspeed.nvim'
 endif
 
 " Add plugins to &runtimepath
@@ -131,7 +138,8 @@ set synmaxcol=1024
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 " DARK
 set background=dark
-let g:tokyonight_style = "night" | colorscheme tokyonight
+" let g:tokyonight_style = "night" | colorscheme tokyonight
+colorscheme sonokai
 " colorscheme PaperColor
 " colorscheme nord
 
