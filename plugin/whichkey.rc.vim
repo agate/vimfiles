@@ -7,7 +7,6 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 let g:which_key_use_floating_win = 0
 " " Define a separator let g:which_key_sep = '→'
-
 " Change the colors if you want
 highlight default link WhichKey          Operator
 highlight default link WhichKeySeperator DiffAdded
@@ -24,16 +23,23 @@ let g:which_key_map = {
       \ 'p' : ['"+p', 'Paste from system clipboard'],
       \ 't' : [':vsplit term://zsh', 'Open Terminal'],
       \ }
+
+" \ 'a' : [':execute "lua vim.lsp.buf.code_action()"', 'Show code actions'],
+" \ 'd' : [':execute "lua vim.lsp.buf.definition()"', 'Show definition'],
+" \ 'D' : [':execute "lua vim.lsp.buf.declaration()"', 'Show declaration'],
+" \ 'f' : [':execute "lua vim.lsp.buf.formatting()"', 'Format code'],
+" \ 'h' : [':execute "lua vim.lsp.buf.hover()"', 'Show hover doc'],
+" \ 'r' : [':execute "lua vim.lsp.buf.references()"', 'Find the cursor word definition and reference'],
+" \ 's' : [':execute "lua vim.lsp.buf.signature_help()"', 'Show signature help'],
+" \ '?' : [':execute "lua vim.diagnostic.open_float()"', 'Show line diagnostics'],
 let g:which_key_map['l'] = {
       \ 'name' : '+LSP',
-      \ 'a' : [':execute "lua vim.lsp.buf.code_action()"', 'Show code actions'],
-      \ 'd' : [':execute "lua vim.lsp.buf.definition()"', 'Show definition'],
-      \ 'D' : [':execute "lua vim.lsp.buf.declaration()"', 'Show declaration'],
-      \ 'f' : [':execute "lua vim.lsp.buf.formatting()"', 'Format code'],
-      \ 'h' : [':execute "lua vim.lsp.buf.hover()"', 'Show hover doc'],
-      \ 'r' : [':execute "lua vim.lsp.buf.references()"', 'Find the cursor word definition and reference'],
-      \ 's' : [':execute "lua vim.lsp.buf.signature_help()"', 'Show signature help'],
-      \ '?' : [':execute "lua vim.diagnostic.open_float()"', 'Show line diagnostics'],
+      \ 'a' : [':execute ":Lspsaga code_action"', 'Show code actions'],
+      \ 'd' : [':execute ":Lspsaga lsp_finder"', 'Show definition'],
+      \ 'e' : [':execute ":Lspsaga show_line_diagnostics"', 'Show line diagnostics'],
+      \ 'h' : [':execute ":Lspsaga hover_doc"', 'Show hover doc'],
+      \ 'r' : [':execute ":Lspsaga rename"', 'Rename'],
+      \ 's' : [':execute ":Lspsaga signature_help"', 'Show signature help'],
       \ }
 
 let g:which_key_map['v'] = {

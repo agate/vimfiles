@@ -23,9 +23,9 @@ Plug 'sainnhe/sonokai'
 " Utils
 " Plug 'mhinz/vim-startify' " Landing page
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+ Plug 'scrooloose/nerdtree'
+   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+   Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -54,16 +54,24 @@ Plug 'tomlion/vim-solidity'
 
 if has('nvim')
   Plug 'neovim/nvim-lspconfig' " Language Server Support
-  Plug 'williamboman/nvim-lsp-installer'
-  Plug 'glepnir/lspsaga.nvim'  " better lsp UI based on neovim/nvim-lspconfig
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' } " better lsp UI based on neovim/nvim-lspconfig
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' " require plenary.nvim plugin
-    Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'onsails/lspkind.nvim'
+
+
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
 
   " Utils
-  Plug 'ggandor/lightspeed.nvim'
+  " Plug 'ggandor/lightspeed.nvim'
+
+  Plug 'kyazdani42/nvim-web-devicons'
 endif
 
 " Add plugins to &runtimepath
@@ -74,7 +82,7 @@ call plug#end()
 " My Settings Begin
 " -----------------------------------------------------------------------------
 
-" General Setup
+" Generad Setup
 " -----------------------------------------------------------------------------
 " Disable any beep
 set noeb vb t_vb=

@@ -1,5 +1,7 @@
-lua << EOF
-local nvim_lsp = require('lspconfig')
+local status, lspconfig = pcall(require, 'lspconfig')
+if (not status) then return end
+
+local lspconfig = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -50,7 +52,7 @@ end
 
 local servers = { 'solargraph', 'tsserver' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
@@ -59,4 +61,3 @@ for _, lsp in ipairs(servers) do
 end
 
 vim.lsp.set_log_level("debug")
-EOF
