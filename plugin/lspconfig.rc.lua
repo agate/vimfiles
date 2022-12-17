@@ -12,10 +12,6 @@ local on_attach = function(client, bufnr)
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- will use null-ls for formatting
-  client.server_capabilities.document_formatting = false
-  client.server_capabilities.document_range_formatting = false
-
   -- auto format when save file
   -- if client.server_capabilities.document_formatting then
   --   vim.api.nvim_command [[augroup Format]]
